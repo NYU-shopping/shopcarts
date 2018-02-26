@@ -92,6 +92,17 @@ def create_item():
                              'Location': location_url
                          })
 
+############################################################
+# DELETE A ITEM (DELETE /shopcart/items)
+############################################################
+@app.route('/shopcart/items/<int:item_id>', methods=['DELETE'])
+def delete_item(item_id):
+    app.logger.info('Request to delete Item with item_id:{}'.format(item_id))
+    item = Item.find(item_id)
+    if item:
+        item.delete()
+    return make_response(' ', status.HTTP_204_NO_CONTENT)
+
 def check_content_type(content_type):
     print request.headers['Content-Type']
     if request.headers['Content-Type'] == content_type:
