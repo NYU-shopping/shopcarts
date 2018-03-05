@@ -4,6 +4,7 @@ Thumbs.db
 
 # Vagrant
 .vagrant
+.vagrant/*
 
 # database files
 db/*
