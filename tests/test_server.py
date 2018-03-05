@@ -152,20 +152,79 @@ class TestItemServer(unittest.TestCase):
         data = json.loads(resp.data)
         query_item = data[0]
         self.assertEqual(query_item['brand_name'], 'gucci')
- 
-    def test_not_found(self):
-        
-        item = Item.find_by_sku('ID111')[0]
-        resp = self.app.delete('/items/{}'.format(item.sku),
-                               content_type='application/json')
-                               
-        self.assertEqual(resp.status_code, 404)
 
-    def test_bad_request(self):
-       
-        resp = self.app.get('pets.kjhv',query_string='brand_name=1')
-                                                      
-        self.assertEqual(resp.status_code, 400)
+    def test_query_item_list_by_name(self):
+        """ Query Items by Name """
+        resp = self.app.get('/items', query_string='name=test_item')
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertGreater(len(resp.data), 0)
+        self.assertIn('ID111', resp.data)
+        self.assertNotIn('ID222', resp.data)
+        data = json.loads(resp.data)
+        query_item = data[0]
+        self.assertEqual(query_item['name'], 'test_item')
+
+    def test_query_item_list_by_sku(self):
+        """ Query Items by Sku """
+        resp = self.app.get('/items', query_string='sku=ID111')
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertGreater(len(resp.data), 0)
+        self.assertIn('ID111', resp.data)
+        self.assertNotIn('ID222', resp.data)
+        data = json.loads(resp.data)
+        query_item = data[0]
+        self.assertEqual(query_item['sku'], 'ID111')
+ 
+    def test_update_item_with_no_name(self):
+        """ Update a Item without assigning a name """
+        new_item = {'brand_name': 'chanel'}
+        data = json.dumps(new_item)
+        resp = self.app.put('/items/2', data=data, content_type='application/json')
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_update_item_not_found(self):
+        """ Update a Item that doesn't exist """
+        new_item = {"name": "jbkjb", "sku": "ID999"}
+        data = json.dumps(new_item)
+        resp = self.app.put('/items/0', data=data, content_type='application/json')
+        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_create_item_with_no_name(self):
+        """ Create a Item with only a sku """
+        new_item = {'sku': 'ID555'}
+        data = json.dumps(new_item)
+        resp = self.app.post('/items', data=data, content_type='application/json')
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
+
+    def test_create_item_no_content_type(self):
+        """ Create a Item with no Content-Type """
+        new_item = {'sku': 'ID555'}
+        data = json.dumps(new_item)
+        resp = self.app.post('/items', data=data)
+        self.assertEqual(resp.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
+
+    def test_get_nonexisting_item(self):
+        """ Get a nonexisting Item """
+        resp = self.app.get('/items/5')
+        self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
+
+    def test_call_create_with_an_id(self):
+        """ Call create passing anid """
+        new_item = {'sku': "ID555", 'count': 4, 'price': 500.00, 'name': "bad_item",
+             'link': "apple.com", 'brand_name': "apple", 'is_available': True}
+        data = json.dumps(new_item)
+        resp = self.app.post('/items/1', data=data)
+        self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+    def test_call_create_with_an_id(self):
+        """ Call create passing anid """
+        new_item = {'sku': "ID555", 'count': 4, 'price': 500.00, 'name': "bad_item",
+             'link': "apple.com", 'brand_name': "apple", 'is_available': True}
+        data = json.dumps(new_item)
+        resp = self.app.post('/items/1', data=data)
+        self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
 
     # @patch('server.Pet.find_by_name')
     # def test_bad_request(self, bad_request_mock):
