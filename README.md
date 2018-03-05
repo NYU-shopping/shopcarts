@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/NYU-Shopcarts/shopcarts.svg?branch=master)](https://travis-ci.org/NYU-Shopcarts/shopcarts)
+
 # shopcarts
 A collection of products to buy
 
