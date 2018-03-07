@@ -141,17 +141,6 @@ def create_items():
                              'Location': location_url
                          })
 
-############################################################
-# DELETE A ITEM (DELETE /shopcart/items)
-############################################################
-@app.route('/shopcart/items/<int:item_id>', methods=['DELETE'])
-def delete_item(item_id):
-    app.logger.info('Request to delete Item with item_id:{}'.format(item_id))
-    item = Item.find(item_id)
-    if item:
-        item.delete()
-    return make_response(' ', status.HTTP_204_NO_CONTENT)
-
 ######################################################################
 # UPDATE AN EXISTING ITEM
 ######################################################################
