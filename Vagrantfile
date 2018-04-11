@@ -54,19 +54,42 @@ Vagrant.configure(2) do |config|
   SHELL
 
   ######################################################################
-  # Add Redis docker container
+  # Add MySQL docker container
   ######################################################################
   config.vm.provision "shell", inline: <<-SHELL
-    # Prepare Redis data share
-    sudo mkdir -p /var/lib/redis/data
-    sudo chown ubuntu:ubuntu /var/lib/redis/data
+    # Prepare MySQL data share
+    sudo mkdir -p /var/lib/mysql
+    sudo chown vagrant:vagrant /var/lib/mysql
   SHELL
 
-  # Add Redis docker container
+  # Add MySQL docker container
   config.vm.provision "docker" do |d|
-    d.pull_images "redis:alpine"
-    d.run "redis:alpine",
-      args: "--restart=always -d --name redis -p 6379:6379 -v /var/lib/redis/data:/data"
+    d.pull_images "mariadb"
+    d.run "mariadb",
+      args: "--restart=always -d --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=passw0rd"
   end
 
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
