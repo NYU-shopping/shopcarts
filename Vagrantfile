@@ -56,20 +56,22 @@ Vagrant.configure(2) do |config|
   ######################################################################
   # Add MySQL docker container
   ######################################################################
-  config.vm.provision "shell", inline: <<-SHELL
+   config.vm.provision "shell", inline: <<-SHELL
     # Prepare MySQL data share
     sudo mkdir -p /var/lib/mysql
-    sudo chown vagrant:vagrant /var/lib/mysql
+    sudo chown ubuntu:ubuntu /var/lib/mysql
   SHELL
 
   # Add MySQL docker container
   config.vm.provision "docker" do |d|
     d.pull_images "mariadb"
     d.run "mariadb",
-      args: "--restart=always -d --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=passw0rd"
+      args: "--restart=always -d --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes"
   end
 
 end
+
+
 
 
 
