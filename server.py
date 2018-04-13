@@ -74,7 +74,7 @@ def internal_server_error(error):
 ######################################################################
 # GET INDEX
 ######################################################################
-@app.route('/')
+@app.route('/shopcarts')
 def index():
     """ Root URL response """
     return jsonify(name='Shopcarts REST API Service',
@@ -85,7 +85,7 @@ def index():
 ######################################################################
 # LIST ALL ITEMS
 ######################################################################
-@app.route('/items', methods=['GET'])
+@app.route('/shopcarts/items', methods=['GET'])
 def list_items():
     """ Returns all of the Items """
     items = []
@@ -108,7 +108,7 @@ def list_items():
 ######################################################################
 # RETRIEVE A ITEM
 ######################################################################
-@app.route('/items/<int:item_id>', methods=['GET'])
+@app.route('/shopcarts/items/<int:item_id>', methods=['GET'])
 def get_items(item_id):
     """
     Retrieve a single Item
@@ -124,7 +124,7 @@ def get_items(item_id):
 ######################################################################
 # ADD A NEW ITEM
 ######################################################################
-@app.route('/items', methods=['POST'])
+@app.route('/shopcarts/items', methods=['POST'])
 def create_items():
     """
     Creates an Item
@@ -144,7 +144,7 @@ def create_items():
 ######################################################################
 # UPDATE AN EXISTING ITEM
 ######################################################################
-@app.route('/items/<int:item_id>', methods=['PUT'])
+@app.route('/shopcarts/items/<int:item_id>', methods=['PUT'])
 def update_items(item_id):
     """
     Update an Item
@@ -164,7 +164,7 @@ def update_items(item_id):
 ######################################################################
 # DELETE A ITEM
 ######################################################################
-@app.route('/items/<int:item_id>', methods=['DELETE'])
+@app.route('/shopcarts/items/<int:item_id>', methods=['DELETE'])
 def delete_items(item_id):
     """
     Delete an Item
