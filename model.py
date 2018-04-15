@@ -91,9 +91,9 @@ class Item(db.Model):
         Item.logger.info('Initializing database')
         Item.app = app
         # This is where we initialize SQLAlchemy from the Flask app
-        db.init_app(app)
-        app.app_context().push()
-        db.create_all()  # make our sqlalchemy tables
+        #db.init_app(app)
+        #app.app_context().push()
+        #db.create_all()  # make our sqlalchemy tables
 
          # Get the credentials from the Bluemix environment
         if 'VCAP_SERVICES' in os.environ:
