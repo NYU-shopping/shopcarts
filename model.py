@@ -1,5 +1,8 @@
 import logging
 from flask_sqlalchemy import SQLAlchemy
+import os
+import json
+
 
 
 # Create the SQLAlchemy object to be initialized later in init_db()
@@ -88,9 +91,30 @@ class Item(db.Model):
         Item.logger.info('Initializing database')
         Item.app = app
         # This is where we initialize SQLAlchemy from the Flask app
-        db.init_app(app)
-        app.app_context().push()
-        db.create_all()  # make our sqlalchemy tables
+        #db.init_app(app)
+        #app.app_context().push()
+        #db.create_all()  # make our sqlalchemy tables
+
+         # Get the credentials from the Bluemix environment
+        if 'VCAP_SERVICES' in os.environ:
+        	Item.logger.info("Using VCAP_SERVICES...")
+        	vcap_services = os.environ['VCAP_SERVICES']
+        	services = json.loads(vcap_services)
+        	creds = services['rediscloud'][0]['credentials']
+        	#uri = creds["uri"]
+	        username = creds["username"]
+	        password = creds["password"]
+	        hostname = creds["hostname"]
+	        port = creds["port"]
+	        name = creds["name"]
+	    else:
+	        username = 'root'
+	        password = ''
+	        hostname = 'localhost'
+	        port = '3306'
+	        name = 'shopcarts'
+	    connect_string = 'mysql+pymysql://{}:{}@{}:{}/{}'
+	    connect_string.format(username, password, hostname, port, name)
 
     @staticmethod
     def all():
