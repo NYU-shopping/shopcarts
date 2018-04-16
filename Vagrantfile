@@ -74,7 +74,7 @@ Vagrant.configure(2) do |config|
 
   # Create the database after Docker is running
   config.vm.provision "shell", inline: <<-SHELL
-    # Wait for mariadb to come up
+    # Wait for mariadb to come up   
     echo "Waiting 20 seconds for mariadb to start..."
     sleep 20
     cd /vagrant
