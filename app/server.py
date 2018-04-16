@@ -182,16 +182,10 @@ def delete_items(item_id):
 
 def init_db():
     """ Initialies the SQLAlchemy app """
-    global app
-    Item.init_db(app)
+    
+    Item.init_db()
 
-def check_content_type(content_type):
-    """ Checks that the media type is correct """
-    if request.headers['Content-Type'] == content_type:
-        return
-    app.logger.error('Invalid Content-Type: %s', request.headers['Content-Type'])
-    abort(415, 'Content-Type must be {}'.format(content_type))
-
+#@app.before_first_request
 def initialize_logging(log_level=logging.INFO):
     """ Initialized the default logging to STDOUT """
     if not app.debug:
@@ -212,13 +206,5 @@ def initialize_logging(log_level=logging.INFO):
         app.logger.setLevel(log_level)
         app.logger.info('Logging handler established')
 
-######################################################################
-#   M A I N
-######################################################################
-if __name__ == "__main__":
-    print "===================================================="
-    print " S H O P C A R T S   S E R V I C E   S T A R T I N G"
-    print "===================================================="
-    initialize_logging(logging.INFO)
-    init_db()  # make our sqlalchemy tables
-    app.run(host='0.0.0.0', port=int(PORT), debug=DEBUG)
+
+   
