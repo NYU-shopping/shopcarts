@@ -27,10 +27,10 @@ import logging
 from flask_api import status    # HTTP Status Codes
 from mock import MagicMock, patch
 
-from model import Item, DataValidationError, db
-import server
+from app.model import Item
+from app import server,db
 
-DATABASE_URI = os.getenv('DATABASE_URI', 'sqlite:///db/test.db')
+DATABASE_URI = os.getenv('DATABASE_URI', None)
 
 
 ######################################################################
