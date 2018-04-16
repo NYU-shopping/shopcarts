@@ -9,23 +9,9 @@ from werkzeug.exceptions import NotFound
 # variety of backends including SQLite, MySQL, and PostgreSQL
 from flask_sqlalchemy import SQLAlchemy
 
-from model import Item, DataValidationError
+from app.model import Item, DataValidationError
+from app import app
 
-# Create Flask application
-app = Flask(__name__)
-
-# We'll just use SQLite here so we don't need an external database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/development.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'please, tell nobody... Shhhh'
-app.config['LOGGING_LEVEL'] = logging.INFO
-
-# Initialize SQLAlchemy
-#db = SQLAlchemy(app)
-
-# Pull options from environment
-DEBUG = (os.getenv('DEBUG', 'False') == 'True')
-PORT = os.getenv('PORT', '5000')
 
 ######################################################################
 # Error Handlers

@@ -2,11 +2,8 @@ import logging
 from flask_sqlalchemy import SQLAlchemy
 import os
 import json
+from . import db
 
-
-
-# Create the SQLAlchemy object to be initialized later in init_db()
-db = SQLAlchemy()
 
 
 class DataValidationError(Exception):
