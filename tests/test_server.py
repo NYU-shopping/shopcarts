@@ -25,7 +25,6 @@ import os
 import json
 import logging
 from flask_api import status    # HTTP Status Codes
-from mock import MagicMock, patch
 
 from app.model import Item
 from app import server,db
@@ -70,8 +69,8 @@ class TestItemServer(unittest.TestCase):
         """ Test the Home Page """
         resp = self.app.get('/')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        data = json.loads(resp.data)
-        self.assertEqual(data['name'], 'Shopcarts REST API Service')
+        self.assertTrue('Pet Demo REST API Service' in resp.data)
+        #self.assertEqual(data['name'], 'Shopcarts REST API Service')
 
     def test_get_item_list(self):
         """ Get a list of Items """

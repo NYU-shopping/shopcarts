@@ -7,6 +7,7 @@ This module contains the microservice code for
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
+
 # These next lines are positional:
 # 1) We need to create the Flask app
 # 2) Then configure it
@@ -19,3 +20,5 @@ app.config.from_object('config')
 
 # Initialize SQLAlchemy
 db = SQLAlchemy(app)
+
+from app import server,model

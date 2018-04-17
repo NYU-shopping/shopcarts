@@ -1,14 +1,7 @@
-import os
 import sys
 import logging
-from flask import Flask, jsonify, request, url_for, make_response, abort
+from flask import jsonify, request, url_for, make_response, abort
 from flask_api import status    # HTTP Status Codes
-from werkzeug.exceptions import NotFound
-
-# For this example we'll use SQLAlchemy, a popular ORM that supports a
-# variety of backends including SQLite, MySQL, and PostgreSQL
-from flask_sqlalchemy import SQLAlchemy
-
 from app.model import Item, DataValidationError
 from app import app
 
@@ -62,12 +55,9 @@ def internal_server_error(error):
 ######################################################################
 @app.route('/')
 def index():
-    """ Root URL response """
-    return jsonify(name='Shopcarts REST API Service',
-                   version='1.0',
-                   paths=url_for('list_items', _external=True)
-                  ), status.HTTP_200_OK
-
+    """ Send back the home page """
+    return app.send_static_file('index.html')
+    
 ######################################################################
 # LIST ALL ITEMS
 ######################################################################

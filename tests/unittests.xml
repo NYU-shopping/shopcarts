@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?><testsuite name="nosetests" tests="29" errors="29" failures="0" skip="0"><testcase classname="test_items.TestItems" name="test_add_an_item" time="0.002"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'&#10;-------------------- &gt;&gt; begin captured logging &lt;&lt; --------------------&#10;root: INFO: Using localhost database...&#10;root: INFO: Conecting to database on host localhost port 3306&#10;--------------------- &gt;&gt; end captured logging &lt;&lt; ---------------------"><![CDATA[  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+"'NoneType' object has no attribute 'drivername'\n-------------------- >> begin captured logging << --------------------\nroot: INFO: Using localhost database...\nroot: INFO: Conecting to database on host localhost port 3306\n--------------------- >> end captured logging << ---------------------"]]></error></testcase><testcase classname="test_items.TestItems" name="test_create_an_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_delete_an_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_deserialize_an_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_find_by_availability" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_find_by_brand" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_find_by_name" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_find_by_price" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_find_by_sku" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_find_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_find_or_404" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_serialize_an_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_items.TestItems" name="test_update_an_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_items.py", line 49, in setUp
+    db.drop_all()    # clean up the last tests
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 980, in drop_all
+    self._execute_for_all_tables(app, bind, 'drop_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_call_create_with_an_id" time="0.001"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_create_item" time="0.001"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_create_item_no_content_type" time="0.001"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_create_item_with_no_name" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_delete_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_get_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_get_item_list" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_get_item_not_found" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_get_nonexisting_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_index" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_query_item_list_by_brand" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_query_item_list_by_name" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_query_item_list_by_sku" time="0.001"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_update_item" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_update_item_not_found" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase><testcase classname="test_server.TestItemServer" name="test_update_item_with_no_name" time="0.000"><error type="exceptions.AttributeError" message="'NoneType' object has no attribute 'drivername'"><![CDATA[Traceback (most recent call last):
+  File "/usr/lib/python2.7/unittest/case.py", line 320, in run
+    self.setUp()
+  File "/vagrant/tests/test_server.py", line 55, in setUp
+    server.init_db()
+  File "/vagrant/app/server.py", line 162, in init_db
+    Item.init_db()
+  File "/vagrant/app/model.py", line 84, in init_db
+    db.create_all()  # make our sqlalchemy tables
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 972, in create_all
+    self._execute_for_all_tables(app, bind, 'create_all')
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 964, in _execute_for_all_tables
+    op(bind=self.get_engine(app, bind), **extra)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 910, in get_engine
+    return connector.get_engine()
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 542, in get_engine
+    self._sa.apply_driver_hacks(self._app, info, options)
+  File "/usr/local/lib/python2.7/dist-packages/flask_sqlalchemy/__init__.py", line 846, in apply_driver_hacks
+    if info.drivername.startswith('mysql'):
+AttributeError: 'NoneType' object has no attribute 'drivername'
+]]></error></testcase></testsuite>

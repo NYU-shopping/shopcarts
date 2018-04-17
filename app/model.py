@@ -12,14 +12,9 @@ class DataValidationError(Exception):
 
 
 class Item(db.Model):
-    """
-    Class that represents an item in the shopping cart
-
-    This version uses a relational database for persistence which is hidden
-    from us by SQLAlchemy's object relational mappings (ORM)
-    """
+    
     logger = logging.getLogger(__name__)
-    app = None
+    
 
     # Table Schema
     id = db.Column(db.Integer, primary_key=True)
@@ -83,8 +78,8 @@ class Item(db.Model):
         return self
 
     @staticmethod
-    def init_db(app):
-          """ Initializes the database session """
+    def init_db():
+        """ Initializes the database session """
         Item.logger.info('Initializing database')
         db.create_all()  # make our sqlalchemy tables
 

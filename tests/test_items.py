@@ -45,22 +45,13 @@ class TestItems(unittest.TestCase):
         pass
 
     def setUp(self):
-        Item.init_db(app)
+        #Item.init_db(app)
         db.drop_all()    # clean up the last tests
         db.create_all()  # make our sqlalchemy tables
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-
-    # id = db.Column(db.Integer, primary_key=True)
-    # sku = db.Column(db.String(63))
-    # count = db.Column(db.Integer)
-    # price = db.Column(db.float)
-    # name = db.Column(db.String(63))
-    # link = db.Column(db.String(63))
-    # brand_name = db.Column(db.String(63))
-    # is_available = db.Column(db.Boolean())
 
     def test_create_an_item(self):
         """ Create an item and assert that it exists """
