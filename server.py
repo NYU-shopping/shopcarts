@@ -177,6 +177,19 @@ def delete_items(item_id):
     return make_response('', status.HTTP_204_NO_CONTENT)
 
 ######################################################################
+# (ACTION) DELETE ALL ITEMS
+######################################################################
+@app.route('/shopcarts/clear', methods=['DELETE'])
+def delete_all_items():
+    """
+    Delete all items
+
+    This is an action endpoint which clears the shopcart
+    """
+    Item.query.delete()
+    return make_response('', status.HTTP_204_NO_CONTENT)
+
+######################################################################
 #  U T I L I T Y   F U N C T I O N S
 ######################################################################
 

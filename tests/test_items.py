@@ -116,6 +116,22 @@ class TestItems(unittest.TestCase):
         item.delete()
         self.assertEqual(len(Item.all()), 0)
 
+    def test_delete_all_items(self):
+        """ Delete all Items """
+        item = Item(sku="ID111", count=3, price=2.00, name="test_item",
+             link="test.com", brand_name="gucci", is_available=True)
+        item.save()
+        Item(sku="ID222", count=5, price=10.00, name="some_item",
+             link="link.com", brand_name="nike", is_available=False).save()
+        self.assertEqual(len(Item.all()), 2)
+
+        # Remove all items from the Items table
+        Item.query.delete()
+
+        # Check if the number of items in Item table is zero because they were removed
+        self.assertEqual(len(Item.all()), 0)
+
+
     def test_serialize_an_item(self):
         """ Test serialization of an Item """
         item = Item(sku="ID111", count=3, price=2.00, name="test_item",
