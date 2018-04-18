@@ -25,7 +25,7 @@ import os
 import json
 import logging
 from flask_api import status    # HTTP Status Codes
-from mock import MagicMock, patch
+#from mock import MagicMock, patch
 
 from model import Item, DataValidationError, db
 import server
@@ -141,6 +141,14 @@ class TestItemServer(unittest.TestCase):
         self.assertEqual(len(resp.data), 0)
         new_count = self.get_item_count()
         self.assertEqual(new_count, item_count - 1)
+
+    def test_delete_all_items(self):
+        """ Delete all Items """
+        resp = self.app.delete('/shopcarts/clear', content_type='application/json')
+        self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(len(resp.data), 0)
+        new_count = self.get_item_count()
+        self.assertEqual(new_count, 0)
 
     def test_query_item_list_by_brand(self):
         """ Query Items by Brand """
