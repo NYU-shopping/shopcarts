@@ -2,7 +2,7 @@ import sys
 import logging
 from flask import jsonify, request, url_for, make_response, abort
 from flask_api import status    # HTTP Status Codes
-from app.model import Item, DataValidationError
+from app.models import Item, DataValidationError
 from app import app
 
 
@@ -61,7 +61,7 @@ def index():
 ######################################################################
 # LIST ALL ITEMS
 ######################################################################
-@app.route('/items', methods=['GET'])
+@app.route('/shopcarts/items', methods=['GET'])
 def list_items():
     """ Returns all of the Items """
     items = []
@@ -84,7 +84,7 @@ def list_items():
 ######################################################################
 # RETRIEVE A ITEM
 ######################################################################
-@app.route('/items/<int:item_id>', methods=['GET'])
+@app.route('/shopcarts/items/<int:item_id>', methods=['GET'])
 def get_items(item_id):
     """
     Retrieve a single Item
@@ -100,7 +100,7 @@ def get_items(item_id):
 ######################################################################
 # ADD A NEW ITEM
 ######################################################################
-@app.route('/items', methods=['POST'])
+@app.route('/shopcarts/items', methods=['POST'])
 def create_items():
     """
     Creates an Item
@@ -120,7 +120,7 @@ def create_items():
 ######################################################################
 # UPDATE AN EXISTING ITEM
 ######################################################################
-@app.route('/items/<int:item_id>', methods=['PUT'])
+@app.route('/shopcarts/items/<int:item_id>', methods=['PUT'])
 def update_items(item_id):
     """
     Update an Item
@@ -140,7 +140,7 @@ def update_items(item_id):
 ######################################################################
 # DELETE A ITEM
 ######################################################################
-@app.route('/items/<int:item_id>', methods=['DELETE'])
+@app.route('/shopcarts/items/<int:item_id>', methods=['DELETE'])
 def delete_items(item_id):
     """
     Delete an Item
@@ -158,7 +158,6 @@ def delete_items(item_id):
 
 def init_db():
     """ Initialies the SQLAlchemy app """
-    
     Item.init_db()
 
 #@app.before_first_request
@@ -181,6 +180,3 @@ def initialize_logging(log_level=logging.INFO):
         app.logger.addHandler(handler)
         app.logger.setLevel(log_level)
         app.logger.info('Logging handler established')
-
-
-   

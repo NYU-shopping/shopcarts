@@ -1,5 +1,5 @@
 """
-Pet Service Runner
+Shopcart Service Runner
 Start the Pet Service and initializes logging
 """
 
@@ -15,7 +15,7 @@ PORT = os.getenv('PORT', '5000')
 ######################################################################
 if __name__ == "__main__":
     print "************************************************************"
-    print "        S H O P C A R T S   A P I   S E R V I C E "
+    print "        S H O P C A R T   R E S T   A P I   S E R V I C E "
     print "************************************************************"
     server.initialize_logging()
     server.init_db()

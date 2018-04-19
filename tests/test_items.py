@@ -22,7 +22,7 @@ Test cases can be run with:
 
 import unittest
 import os
-from app.model import Item, DataValidationError
+from app.models import Item, DataValidationError
 from app import app,db
 
 DATABASE_URI = os.getenv('DATABASE_URI', None)
@@ -38,6 +38,7 @@ class TestItems(unittest.TestCase):
         """ These run once per Test suite """
         app.debug = False
         # Set up the test database
+        app.logger.info(DATABASE_URI)
         app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 
     @classmethod

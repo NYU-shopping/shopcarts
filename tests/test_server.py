@@ -26,7 +26,7 @@ import json
 import logging
 from flask_api import status    # HTTP Status Codes
 
-from app.model import Item
+from app.models import Item
 from app import server,db
 
 DATABASE_URI = os.getenv('DATABASE_URI', None)
@@ -74,7 +74,7 @@ class TestItemServer(unittest.TestCase):
 
     def test_get_item_list(self):
         """ Get a list of Items """
-        resp = self.app.get('/items')
+        resp = self.app.get('/shopcarts/items')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = json.loads(resp.data)
         self.assertEqual(len(data), 2)
@@ -83,7 +83,7 @@ class TestItemServer(unittest.TestCase):
         """ Get a single Item """
         # get the sku of an item
         item = Item.find_by_name('test_item')[0]
-        resp = self.app.get('/items/{}'.format(item.id),
+        resp = self.app.get('/shopcarts/items/{}'.format(item.id),
                             content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = json.loads(resp.data)
@@ -91,7 +91,7 @@ class TestItemServer(unittest.TestCase):
 
     def test_get_item_not_found(self):
         """ Get an Item that's not found """
-        resp = self.app.get('/items/0')
+        resp = self.app.get('/shopcarts/items/0')
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_create_item(self):
@@ -102,7 +102,8 @@ class TestItemServer(unittest.TestCase):
         new_item = {'sku': 'ID333', 'count': 5, 'price': 1000.00, 'name': 'watch', 'link': 'rolex.com',
                     'brand_name': 'rolex', 'is_available': True}
         data = json.dumps(new_item)
-        resp = self.app.post('/items', data=data, content_type='application/json')
+        resp = self.app.post('/shopcarts/items', data=data, content_type='application/json')
+        print(resp)
         self.assertEqual(resp.status_code, status.HTTP_201_CREATED)
         # Make sure location header is set
         location = resp.headers.get('Location', None)
@@ -111,7 +112,7 @@ class TestItemServer(unittest.TestCase):
         new_json = json.loads(resp.data)
         self.assertEqual(new_json['sku'], 'ID333')
         # check that count has gone up and includes ID333
-        resp = self.app.get('/items')
+        resp = self.app.get('/shopcarts/items')
         # print 'resp_data(2): ' + resp.data
         data = json.loads(resp.data)
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
@@ -124,7 +125,7 @@ class TestItemServer(unittest.TestCase):
         new_id222 = {'sku': 'ID222', 'count': 5, 'price': 10.00, 'name': 'some_item', 'link': 'link.com',
                     'brand_name': 'reebok', 'is_available': False}
         data = json.dumps(new_id222)
-        resp = self.app.put('/items/{}'.format(item.id), data=data, content_type='application/json')
+        resp = self.app.put('/shopcarts/items/{}'.format(item.id), data=data, content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         new_json = json.loads(resp.data)
         self.assertEqual(new_json['brand_name'], 'reebok')
@@ -134,7 +135,7 @@ class TestItemServer(unittest.TestCase):
         item = Item.find_by_sku('ID111')[0]
         # save the current number of items for later comparison
         item_count = self.get_item_count()
-        resp = self.app.delete('/items/{}'.format(item.id),
+        resp = self.app.delete('/shopcarts/items/{}'.format(item.id),
                                content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(len(resp.data), 0)
@@ -143,7 +144,7 @@ class TestItemServer(unittest.TestCase):
 
     def test_query_item_list_by_brand(self):
         """ Query Items by Brand """
-        resp = self.app.get('/items', query_string='brand_name=gucci')
+        resp = self.app.get('/shopcarts/items', query_string='brand_name=gucci')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertGreater(len(resp.data), 0)
         self.assertIn('ID111', resp.data)
@@ -154,7 +155,7 @@ class TestItemServer(unittest.TestCase):
 
     def test_query_item_list_by_name(self):
         """ Query Items by Name """
-        resp = self.app.get('/items', query_string='name=test_item')
+        resp = self.app.get('/shopcarts/items', query_string='name=test_item')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertGreater(len(resp.data), 0)
         self.assertIn('ID111', resp.data)
@@ -165,7 +166,7 @@ class TestItemServer(unittest.TestCase):
 
     def test_query_item_list_by_sku(self):
         """ Query Items by Sku """
-        resp = self.app.get('/items', query_string='sku=ID111')
+        resp = self.app.get('/shopcarts/items', query_string='sku=ID111')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertGreater(len(resp.data), 0)
         self.assertIn('ID111', resp.data)
@@ -178,33 +179,33 @@ class TestItemServer(unittest.TestCase):
         """ Update a Item without assigning a name """
         new_item = {'brand_name': 'chanel'}
         data = json.dumps(new_item)
-        resp = self.app.put('/items/2', data=data, content_type='application/json')
+        resp = self.app.put('/shopcarts/items/2', data=data, content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_update_item_not_found(self):
         """ Update a Item that doesn't exist """
         new_item = {"name": "jbkjb", "sku": "ID999"}
         data = json.dumps(new_item)
-        resp = self.app.put('/items/0', data=data, content_type='application/json')
+        resp = self.app.put('/shopcarts/items/0', data=data, content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_create_item_with_no_name(self):
         """ Create a Item with only a sku """
         new_item = {'sku': 'ID555'}
         data = json.dumps(new_item)
-        resp = self.app.post('/items', data=data, content_type='application/json')
+        resp = self.app.post('/shopcarts/items', data=data, content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_create_item_no_content_type(self):
         """ Create a Item with no Content-Type """
         new_item = {'sku': 'ID555'}
         data = json.dumps(new_item)
-        resp = self.app.post('/items', data=data)
+        resp = self.app.post('/shopcarts/items', data=data)
         self.assertEqual(resp.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
 
     def test_get_nonexisting_item(self):
         """ Get a nonexisting Item """
-        resp = self.app.get('/items/5')
+        resp = self.app.get('/shopcarts/items/5')
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_call_create_with_an_id(self):
@@ -212,15 +213,15 @@ class TestItemServer(unittest.TestCase):
         new_item = {'sku': "ID555", 'count': 4, 'price': 500.00, 'name': "bad_item",
              'link': "apple.com", 'brand_name': "apple", 'is_available': True}
         data = json.dumps(new_item)
-        resp = self.app.post('/items/1', data=data)
+        resp = self.app.post('/shopcarts/items/1', data=data)
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_call_create_with_an_id(self):
-        """ Call create passing anid """
+        """ Call create passing an id """
         new_item = {'sku': "ID555", 'count': 4, 'price': 500.00, 'name': "bad_item",
              'link': "apple.com", 'brand_name': "apple", 'is_available': True}
         data = json.dumps(new_item)
-        resp = self.app.post('/items/1', data=data)
+        resp = self.app.post('/shopcarts/items/1', data=data)
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
@@ -246,7 +247,7 @@ class TestItemServer(unittest.TestCase):
 
     def get_item_count(self):
         """ save the current number of items """
-        resp = self.app.get('/items')
+        resp = self.app.get('/shopcarts/items')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = json.loads(resp.data)
         return len(data)

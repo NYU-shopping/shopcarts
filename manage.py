@@ -1,14 +1,18 @@
+#!usr//bin/python
 """
 Database Creation Script
+
 This Python script will create the database base on the
 environment variables DATABASE_URI or SQLALCHEMY_DATABASE_URI
 in that order. (DATABASE_URI overrides SQLALCHEMY_DATABASE_URI)
 You can also override the database name in the URI by passing
 in a new name.
+
 Enviroment Variables:
 ---------------------
     - SQLALCHEMY_DATABASE_URI : connection string from config
     - DATABASE_URI: override config string
+
 Arguments:
 ----------
     - database_name : String the name of the database
