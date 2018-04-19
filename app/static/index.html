@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Shopcarts RESTful Service</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="static/stylesheets/style.css">
+</head>
+
+<body>
+  <table>
+    <tr>
+      <td style="width:30%;">
+        <img class="newappIcon" src="static/images/newapp-icon.png">
+      </td>
+      <td>
+        <h1 id="message">Shopcarts REST API Service</h1>
+        <p class='description'>
+          GET <a href="/shopcarts/items" id="get_items">/shopcarts/items</a> to see all the items.
+          <br>
+          <br> GET /shopcarts/items/{id} retrieves an item from the DB using an ID.
+          <br>
+          <br> PUT /shopcarts/items/{id} updates an item using an ID.
+          <br>
+          <br> DELETE /shopcarts/items/{id} removes an item from the DB using an ID.
+          <br>
+          <br> POST /shopcarts/items creates an new item.
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

@@ -54,6 +54,8 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
+tests/unittests.xml
+
 *,cover
 .hypothesis/
 
