@@ -26,14 +26,19 @@ Vagrant.configure(2) do |config|
     config.vm.provision "file", source: "~/.ssh/id_rsa", destination: "~/.ssh/id_rsa"
   end
 
-######################################################################
+
+  ######################################################################
   # Setup a Python development environment
   ######################################################################
   config.vm.provision "shell", inline: <<-SHELL
+    #apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
     apt-get update
-    apt-get install -y git zip tree python-pip python-dev
+    apt-get install -y wget git zip tree python-pip python-dev
     apt-get -y autoremove
     pip install --upgrade pip
+    # Make vi look nice
+    sudo -H -u vagrant echo "colorscheme desert" > ~/.vimrc
+    # Install Bluemix CLI
     echo "\n******************************"
     echo " Installing Bluemix CLI"
     echo "******************************\n"
@@ -43,11 +48,10 @@ Vagrant.configure(2) do |config|
     cd ..
     rm -fr Bluemix_CLI/
     bluemix config --usage-stats-collect false
-    # Make vi look nice
-    sudo -H -u vagrant echo "colorscheme desert" > ~/.vimrc
+   
     # Install app dependencies
     echo "\n******************************"
-    echo " Installing App Dependencies"
+    echo " Installing app dependencies"
     echo "******************************\n"
     cd /vagrant
     sudo pip install -r requirements.txt
@@ -56,16 +60,29 @@ Vagrant.configure(2) do |config|
   ######################################################################
   # Add MySQL docker container
   ######################################################################
-   config.vm.provision "shell", inline: <<-SHELL
+  config.vm.provision "shell", inline: <<-SHELL
     # Prepare MySQL data share
     sudo mkdir -p /var/lib/mysql
-    sudo chown ubuntu:ubuntu /var/lib/mysql
+    sudo chown vagrant:vagrant /var/lib/mysql
   SHELL
 
   # Add MySQL docker container
   config.vm.provision "docker" do |d|
     d.pull_images "mariadb"
     d.run "mariadb",
-      args: "--restart=always -d --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_ALLOW_EMPTY_PASSWORD=yes"
+      args: "--restart=always -d --name mariadb -p 3306:3306 -v /var/lib/mysql:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=passw0rd"
   end
+
+  # Create the database after Docker is running
+  config.vm.provision "shell", inline: <<-SHELL
+    # Wait for mariadb to come up   
+    echo "Waiting 20 seconds for mariadb to start..."
+    sleep 20
+    cd /vagrant
+    python manage.py development
+    python manage.py test
+    cd
+  SHELL
+
+>>>>>>> add_persistence
 end

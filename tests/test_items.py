@@ -1,31 +1,9 @@
-# Copyright 2016, 2017 John J. Rofrano. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""
-Test cases for Item Model
-
-Test cases can be run with:
-  nosetests
-  coverage report -m
-"""
-
 import unittest
 import os
-from model import Item, DataValidationError, db
-from server import app
+from app.models import Item, DataValidationError
+from app import app,db
 
-DATABASE_URI = os.getenv('DATABASE_URI', 'sqlite:///db/test.db')
+DATABASE_URI = os.getenv('DATABASE_URI', None)
 
 ######################################################################
 #  T E S T   C A S E S
@@ -38,6 +16,7 @@ class TestItems(unittest.TestCase):
         """ These run once per Test suite """
         app.debug = False
         # Set up the test database
+        app.logger.info(DATABASE_URI)
         app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 
     @classmethod
@@ -45,22 +24,12 @@ class TestItems(unittest.TestCase):
         pass
 
     def setUp(self):
-        Item.init_db(app)
         db.drop_all()    # clean up the last tests
         db.create_all()  # make our sqlalchemy tables
 
     def tearDown(self):
         db.session.remove()
         db.drop_all()
-
-    # id = db.Column(db.Integer, primary_key=True)
-    # sku = db.Column(db.String(63))
-    # count = db.Column(db.Integer)
-    # price = db.Column(db.float)
-    # name = db.Column(db.String(63))
-    # link = db.Column(db.String(63))
-    # brand_name = db.Column(db.String(63))
-    # is_available = db.Column(db.Boolean())
 
     def test_create_an_item(self):
         """ Create an item and assert that it exists """
@@ -277,9 +246,6 @@ class TestItems(unittest.TestCase):
         self.assertEqual(items[0].link, "link.com")
         self.assertEqual(items[0].brand_name, "nike")
         self.assertEqual(items[0].is_available, False)
-
-    
-
 
 ######################################################################
 #   M A I N

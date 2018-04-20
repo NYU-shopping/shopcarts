@@ -1,25 +1,16 @@
+import os
+import json
 import logging
-from flask_sqlalchemy import SQLAlchemy
+from . import db
 
-
-# Create the SQLAlchemy object to be initialized later in init_db()
-db = SQLAlchemy()
-
-
-class DataValidationError(Exception):
-    """ Used for an data validation errors when deserializing """
+######################################################################
+# Custom Exceptions
+######################################################################
+class DataValidationError(ValueError):
     pass
 
-
-class Item(db.Model):
-    """
-    Class that represents an item in the shopping cart
-
-    This version uses a relational database for persistence which is hidden
-    from us by SQLAlchemy's object relational mappings (ORM)
-    """
+class Item(db.Model):    
     logger = logging.getLogger(__name__)
-    app = None
 
     # Table Schema
     id = db.Column(db.Integer, primary_key=True)
@@ -83,13 +74,9 @@ class Item(db.Model):
         return self
 
     @staticmethod
-    def init_db(app):
+    def init_db():
         """ Initializes the database session """
         Item.logger.info('Initializing database')
-        Item.app = app
-        # This is where we initialize SQLAlchemy from the Flask app
-        db.init_app(app)
-        app.app_context().push()
         db.create_all()  # make our sqlalchemy tables
 
     @staticmethod
@@ -159,4 +146,3 @@ class Item(db.Model):
         """
         Item.logger.info('Processing brand_name query for %s ...', brand_name)
         return Item.query.filter(Item.brand_name == brand_name)
-

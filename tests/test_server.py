@@ -1,37 +1,13 @@
-# Copyright 2016, 2017 John J. Rofrano. All Rights Reserved.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-# https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
-"""
-Item API Service Test Suite
-
-Test cases can be run with the following:
-  nosetests -v --with-spec --spec-color
-  coverage report -m
-"""
-
 import unittest
 import os
 import json
 import logging
 from flask_api import status    # HTTP Status Codes
-#from mock import MagicMock, patch
 
-from model import Item, DataValidationError, db
-import server
+from app.models import Item
+from app import server,db
 
-DATABASE_URI = os.getenv('DATABASE_URI', 'sqlite:///db/test.db')
-
+DATABASE_URI = os.getenv('DATABASE_URI', None)
 
 ######################################################################
 #  T E S T   C A S E S
@@ -70,8 +46,6 @@ class TestItemServer(unittest.TestCase):
         """ Test the Home Page """
         resp = self.app.get('/shopcarts')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
-        data = json.loads(resp.data)
-        self.assertEqual(data['name'], 'Shopcarts REST API Service')
 
     def test_get_item_list(self):
         """ Get a list of Items """
@@ -184,32 +158,32 @@ class TestItemServer(unittest.TestCase):
         self.assertEqual(query_item['sku'], 'ID111')
  
     def test_update_item_with_no_name(self):
-        """ Update a Item without assigning a name """
+        """ Update an Item without assigning a name """
         new_item = {'brand_name': 'chanel'}
         data = json.dumps(new_item)
         resp = self.app.put('/shopcarts/items/2', data=data, content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_update_item_not_found(self):
-        """ Update a Item that doesn't exist """
+        """ Update an Item that doesn't exist """
         new_item = {"name": "jbkjb", "sku": "ID999"}
         data = json.dumps(new_item)
         resp = self.app.put('/shopcarts/items/0', data=data, content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_create_item_with_no_name(self):
-        """ Create a Item with only a sku """
+        """ Create an Item with only a sku """
         new_item = {'sku': 'ID555'}
         data = json.dumps(new_item)
         resp = self.app.post('/shopcarts/items', data=data, content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_create_item_no_content_type(self):
-        """ Create a Item with no Content-Type """
+        """ Create an Item with no Content-Type """
         new_item = {'sku': 'ID555'}
         data = json.dumps(new_item)
         resp = self.app.post('/shopcarts/items', data=data)
-        self.assertEqual(resp.status_code, status.HTTP_415_UNSUPPORTED_MEDIA_TYPE)
+        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_get_nonexisting_item(self):
         """ Get a nonexisting Item """
@@ -217,7 +191,7 @@ class TestItemServer(unittest.TestCase):
         self.assertEqual(resp.status_code, status.HTTP_404_NOT_FOUND)
 
     def test_call_create_with_an_id(self):
-        """ Call create passing anid """
+        """ Call create passing an id """
         new_item = {'sku': "ID555", 'count': 4, 'price': 500.00, 'name': "bad_item",
              'link': "apple.com", 'brand_name': "apple", 'is_available': True}
         data = json.dumps(new_item)
@@ -225,29 +199,12 @@ class TestItemServer(unittest.TestCase):
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
 
     def test_call_create_with_an_id(self):
-        """ Call create passing anid """
+        """ Call create passing an id """
         new_item = {'sku': "ID555", 'count': 4, 'price': 500.00, 'name': "bad_item",
              'link': "apple.com", 'brand_name': "apple", 'is_available': True}
         data = json.dumps(new_item)
         resp = self.app.post('/shopcarts/items/1', data=data)
         self.assertEqual(resp.status_code, status.HTTP_405_METHOD_NOT_ALLOWED)
-
-
-
-    # @patch('server.Pet.find_by_name')
-    # def test_bad_request(self, bad_request_mock):
-    #     """ Test a Bad Request error from Find By Name """
-    #     bad_request_mock.side_effect = DataValidationError()
-    #     resp = self.app.get('/pets', query_string='name=fido')
-    #     self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
-    #
-    # @patch('server.Pet.find_by_name')
-    # def test_mock_search_data(self, pet_find_mock):
-    #     """ Test showing how to mock data """
-    #     pet_find_mock.return_value = [MagicMock(serialize=lambda: {'name': 'fido'})]
-    #     resp = self.app.get('/pets', query_string='name=fido')
-    #     self.assertEqual(resp.status_code, status.HTTP_200_OK)
-
 
 ######################################################################
 # Utility functions
@@ -259,7 +216,6 @@ class TestItemServer(unittest.TestCase):
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         data = json.loads(resp.data)
         return len(data)
-
 
 ######################################################################
 #   M A I N
