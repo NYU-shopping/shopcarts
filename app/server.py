@@ -1,31 +1,9 @@
-import os
 import sys
 import logging
-from flask import Flask, jsonify, request, url_for, make_response, abort
+from flask import jsonify, request, url_for, make_response, abort
 from flask_api import status    # HTTP Status Codes
-from werkzeug.exceptions import NotFound
-
-# For this example we'll use SQLAlchemy, a popular ORM that supports a
-# variety of backends including SQLite, MySQL, and PostgreSQL
-from flask_sqlalchemy import SQLAlchemy
-
-from model import Item, DataValidationError
-
-# Create Flask application
-app = Flask(__name__)
-
-# We'll just use SQLite here so we don't need an external database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/development.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'please, tell nobody... Shhhh'
-app.config['LOGGING_LEVEL'] = logging.INFO
-
-# Initialize SQLAlchemy
-#db = SQLAlchemy(app)
-
-# Pull options from environment
-DEBUG = (os.getenv('DEBUG', 'False') == 'True')
-PORT = os.getenv('PORT', '5000')
+from app.models import Item, DataValidationError
+from app import app
 
 ######################################################################
 # Error Handlers
@@ -76,12 +54,9 @@ def internal_server_error(error):
 ######################################################################
 @app.route('/shopcarts')
 def index():
-    """ Root URL response """
-    return jsonify(name='Shopcarts REST API Service',
-                   version='1.0',
-                   paths=url_for('list_items', _external=True)
-                  ), status.HTTP_200_OK
-
+    """ Send back the home page """
+    return app.send_static_file('index.html')
+    
 ######################################################################
 # LIST ALL ITEMS
 ######################################################################
@@ -112,14 +87,12 @@ def list_items():
 def get_items(item_id):
     """
     Retrieve a single Item
-
     This endpoint will return an Item based on it's id
     """
     item = Item.find(item_id)
     if not item:
-        raise NotFound("Item with id '{}' was not found.".format(item_id))
+        abort(status.HTTP_404_NOT_FOUND, "Item with id '{}' was not found.".format(item_id))
     return make_response(jsonify(item.serialize()), status.HTTP_200_OK)
-
 
 ######################################################################
 # ADD A NEW ITEM
@@ -128,18 +101,17 @@ def get_items(item_id):
 def create_items():
     """
     Creates an Item
-    This endpoint will create an Item based the data in the body that is posted
     """
-    check_content_type('application/json')
+    data = {}
+    # Check for form submission data
+    app.logger.info('Processing JSON data')
+    data = request.get_json()
     item = Item()
-    item.deserialize(request.get_json())
+    item.deserialize(data)
     item.save()
     message = item.serialize()
-    location_url = url_for('get_items', item_id=item.id, _external=True)
     return make_response(jsonify(message), status.HTTP_201_CREATED,
-                         {
-                             'Location': location_url
-                         })
+                         {'Location': url_for('get_items', item_id=item.id, _external=True)})
 
 ######################################################################
 # UPDATE AN EXISTING ITEM
@@ -148,13 +120,9 @@ def create_items():
 def update_items(item_id):
     """
     Update an Item
-
     This endpoint will update a Item based the body that is posted
     """
-    check_content_type('application/json')
-    item = Item.find(item_id)
-    if not item:
-        raise NotFound("Item with id '{}' was not found.".format(item_id))
+    item = Item.find_or_404(item_id)
     item.deserialize(request.get_json())
     item.id = item_id
     item.save()
@@ -168,7 +136,6 @@ def update_items(item_id):
 def delete_items(item_id):
     """
     Delete an Item
-
     This endpoint will delete an Item based the id specified in the path
     """
     item = Item.find(item_id)
@@ -195,16 +162,9 @@ def delete_all_items():
 
 def init_db():
     """ Initialies the SQLAlchemy app """
-    global app
-    Item.init_db(app)
+    Item.init_db()
 
-def check_content_type(content_type):
-    """ Checks that the media type is correct """
-    if request.headers['Content-Type'] == content_type:
-        return
-    app.logger.error('Invalid Content-Type: %s', request.headers['Content-Type'])
-    abort(415, 'Content-Type must be {}'.format(content_type))
-
+#@app.before_first_request
 def initialize_logging(log_level=logging.INFO):
     """ Initialized the default logging to STDOUT """
     if not app.debug:
@@ -224,14 +184,3 @@ def initialize_logging(log_level=logging.INFO):
         app.logger.addHandler(handler)
         app.logger.setLevel(log_level)
         app.logger.info('Logging handler established')
-
-######################################################################
-#   M A I N
-######################################################################
-if __name__ == "__main__":
-    print "===================================================="
-    print " S H O P C A R T S   S E R V I C E   S T A R T I N G"
-    print "===================================================="
-    initialize_logging(logging.INFO)
-    init_db()  # make our sqlalchemy tables
-    app.run(host='0.0.0.0', port=int(PORT), debug=DEBUG)
