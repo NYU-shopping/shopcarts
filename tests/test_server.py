@@ -154,13 +154,6 @@ class TestItemServer(unittest.TestCase):
         data = json.loads(resp.data)
         query_item = data[0]
         self.assertEqual(query_item['sku'], 'ID111')
- 
-    def test_update_item_with_no_name(self):
-        """ Update an Item without assigning a name """
-        new_item = {'brand_name': 'chanel'}
-        data = json.dumps(new_item)
-        resp = self.app.put('/shopcarts/items/2', data=data, content_type='application/json')
-        self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
 
     def test_update_item_not_found(self):
         """ Update an Item that doesn't exist """
