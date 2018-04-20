@@ -9,6 +9,10 @@ install: "pip install -r requirements.txt"
 before_script:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS development;'
 
+env:
+  global:
+    - DATABASE_URI='mysql+pymysql://root@localhost:3306/development'
+
 script:
   - nosetests --with-coverage --cover-erase
 
