@@ -6,13 +6,14 @@ python:
 install: "pip install -r requirements.txt"
 
 # commands to run tests
-before_script: redis-cli ping
+before_script:
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS development;'
 
 script:
-  - nosetests
+  - nosetests --with-coverage --cover-erase
 
 after_success:
  - codecov
 
 services:
-  - redis-server
+  - mysql

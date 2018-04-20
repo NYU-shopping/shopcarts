@@ -84,5 +84,4 @@ Vagrant.configure(2) do |config|
     cd
   SHELL
 
->>>>>>> add_persistence
 end
