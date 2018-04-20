@@ -121,8 +121,6 @@ class TestItemServer(unittest.TestCase):
         resp = self.app.delete('/shopcarts/clear', content_type='application/json')
         self.assertEqual(resp.status_code, status.HTTP_204_NO_CONTENT)
         self.assertEqual(len(resp.data), 0)
-        new_count = self.get_item_count()
-        self.assertEqual(new_count, 0)
 
     def test_query_item_list_by_brand(self):
         """ Query Items by Brand """
