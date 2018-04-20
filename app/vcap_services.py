@@ -43,6 +43,13 @@ def get_database_uri():
         hostname = creds["hostname"]
         port = creds["port"]
         name = creds["name"]
+    elif 'TRAVIS' in os.environ:
+        logging.info("Using Travis")
+        username = 'root'
+        password = ''
+        hostname = 'localhost'
+        port = '3306'
+        name = 'development'
     else:
         logging.info("Using localhost database...")
         username = 'root'
@@ -52,5 +59,10 @@ def get_database_uri():
         name = 'development'
 
     logging.info("Conecting to database on host %s port %s", hostname, port)
-    connect_string = 'mysql+pymysql://{}:{}@{}:{}/{}'
-    return connect_string.format(username, password, hostname, port, name)
+
+    if password == '':
+        connect_string = 'mysql+pymysql://{}@{}:{}/{}'
+        return connect_string.format(username, hostname, port, name)
+    else:
+        connect_string = 'mysql+pymysql://{}:{}@{}:{}/{}'
+        return connect_string.format(username, password, hostname, port, name)
