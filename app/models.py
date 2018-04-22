@@ -65,7 +65,6 @@ class Item(db.Model):
             self.count = data['count']
             self.is_available = data['is_available']
             self.link = data['link']
-            self.name = data['name']
         except KeyError as error:
             raise DataValidationError('Invalid item: missing ' + error.args[0])
         except TypeError as error:
