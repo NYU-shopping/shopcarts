@@ -100,7 +100,7 @@ def list_items():
     This endpoint will return all items unless a query parameter is specified
     ---
     tags:
-      - Item
+      - Items
     description: The Items endpoint allows you to query Items
     parameters:
       - name: sku
@@ -231,7 +231,7 @@ def create_items():
     posted
     ---
     tags:
-        - Item
+        - Items
     consumes:
         - application/json
     produces:
@@ -323,7 +323,7 @@ def update_items(item_id):
     posted
     ---
     tags:
-        - Item
+        - Items
     consumes:
         - application/json
     produces:
@@ -369,7 +369,6 @@ def update_items(item_id):
           description: URL of the item
           type: string
           required: true
-
     responses:
         200:
             description: Item field updated
