@@ -1,9 +1,35 @@
 import sys
 import logging
-from flask import jsonify, request, url_for, make_response, abort
+from flask import Flask, Response, jsonify, request, json, url_for, make_response, abort
 from flask_api import status    # HTTP Status Codes
-from app.models import Item, DataValidationError
+from flasgger import Swagger
+# from app.models import Item, DataValidationError
 from app import app
+
+#####################################################################
+# Configure Swagger before initializing it
+######################################################################
+app.config['SWAGGER'] = {
+    "swagger_version": "2.0",
+    "specs": [
+        {
+            "version": "1.0.0",
+            "title": "Swagger Shopcarts Service",
+            "description": "This is a Shopcarts REST service.",
+            "endpoint": 'v1_spec',
+            "route": '/v1/spec'
+        }
+    ]
+}
+Swagger(app)
+
+######################################################################
+# Custom Exceptions
+######################################################################
+class DataValidationError(ValueError):
+    pass
+
+from app.models import *
 
 ######################################################################
 # Error Handlers
@@ -48,6 +74,13 @@ def internal_server_error(error):
     app.logger.info(message)
     return jsonify(status=500, error='Internal Server Error', message=message), 500
 
+######################################################################
+# Routes
+######################################################################
+
+@app.route("/")
+def home():
+    return app.send_static_file('index.html')
 
 ######################################################################
 # GET INDEX
@@ -56,21 +89,96 @@ def internal_server_error(error):
 def index():
     """ Send back the home page """
     return app.send_static_file('index.html')
-    
+
 ######################################################################
 # LIST ALL ITEMS
 ######################################################################
 @app.route('/shopcarts/items', methods=['GET'])
 def list_items():
-    """ Returns all of the Items """
+    """
+    Returns all of the Items
+    This endpoint will return all items unless a query parameter is specified
+    ---
+    tags:
+      - Item
+    description: The Items endpoint allows you to query Items
+    parameters:
+      - name: sku
+        in: query
+        description: the sku of the item you are looking for
+        required: false
+        type: string
+      - name: name
+        in: query
+        description: the name of the item you are looking for
+        required: false
+        type: string
+      - name: price
+        in: query
+        description: the minimum price of the item you are looking for
+        required: false
+        type: number
+      - name: is_available
+        in: query
+        description: the availability of the item you are looking for
+        required: false
+        type: boolean
+      - name: brand_name
+        in: query
+        description: the brand of the item you are looking for
+        required: false
+        type: string
+    definitions:
+      Item:
+        type: object
+        properties:
+          id:
+            type: integer
+            description: unique ID assigned interally by service
+          sku:
+            type: string
+            description: sku of the item
+          name:
+            type: string
+            description: name of the item
+          price:
+            type: number
+            description: price of the item
+          is_available:
+            type: boolean
+            description: availability of the item
+          brand_name:
+            type: string
+            description: brand of the item
+          count:
+            type: number
+            description: quantity of the item
+          link:
+            type: string
+            description: URL of the item
+    responses:
+      200:
+        description: An array of Items
+        schema:
+            type: array
+            items:
+                schema:
+                    $ref: '#/definitions/Item'
+    """
     items = []
     sku = request.args.get('sku')
     name = request.args.get('name')
+    price = request.args.get('price')
+    is_available = request.args.get('is_available')
     brand_name = request.args.get('brand_name')
     if sku:
         items = Item.find_by_sku(sku)
     elif name:
         items = Item.find_by_name(name)
+    elif price:
+        items = Item.find_by_price(price)
+    elif is_available:
+        items = Item.find_by_availability(is_available)
     elif brand_name:
         items = Item.find_by_brand(brand_name)
     else:
@@ -87,7 +195,25 @@ def list_items():
 def get_items(item_id):
     """
     Retrieve a single Item
-    This endpoint will return an Item based on it's id
+    This endpoint will return an Item based on its id
+    ---
+    tags:
+      - Items
+    produces:
+      - application/json
+    parameters:
+      - name: id
+        in: path
+        description: ID of item to retrieve
+        type: integer
+        required: true
+    responses:
+      200:
+        description: Item returned
+        schema:
+          $ref: '#/definitions/Item'
+      404:
+        description: Item not found
     """
     item = Item.find(item_id)
     if not item:
@@ -101,6 +227,79 @@ def get_items(item_id):
 def create_items():
     """
     Creates an Item
+    This endpoint will create an Item based on the data in the body that is
+    posted
+    ---
+    tags:
+        - Item
+    consumes:
+        - application/json
+    produces:
+        - application/json
+    parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            id: data
+            required:
+                - sku
+                - name
+                - brand_name
+                - price
+                - count
+                - is_available
+                - link
+            properties:
+                sku:
+                    type: string
+                    description: enter sku of the item
+                name:
+                    type: string
+                    description: enter name of the item
+                brand_name:
+                    type: string
+                    description: enter brand of the item
+                price:
+                    type: number
+                    description: enter price of the item
+                count:
+                    type: integer
+                    description: enter quantity of the item
+                is_available:
+                    type: boolean
+                    description: enter availability of the item
+                link:
+                    type: string
+                    description: enter URL of the item
+    responses:
+        201:
+            description: Item created
+            schema:
+                properties:
+                    sku:
+                        type: String
+                        description: unique id assigned internally by service
+                    name:
+                        type: String
+                        description: The name of the item in the system
+                    brand_name:
+                        type: String
+                        description: The brand of the item in the system
+                    price:
+                        type: number
+                        description: The price of the item in the system
+                    count:
+                        type: integer
+                        description: The quantiyu of the item in the system
+                    is_available:
+                        type: boolean
+                        description: The availability of the item in the system
+                    link:
+                        type: string
+                        description: The URL of the item in the system
+        400:
+            description: Bad Request
     """
     data = {}
     # Check for form submission data
@@ -120,7 +319,86 @@ def create_items():
 def update_items(item_id):
     """
     Update an Item
-    This endpoint will update a Item based the body that is posted
+    This endpoint will update an Item based on the data in the body that is
+    posted
+    ---
+    tags:
+        - Item
+    consumes:
+        - application/json
+    produces:
+        - application/json
+    parameters:
+        - name: id
+          in: path
+          description: ID of the item to retrieve
+          type: integer
+          required: true
+        - name: sku
+          in: path
+          description: sku of the item
+          type: string
+          required: true
+        - name: name
+          in: path
+          description: name of the item
+          type: string
+          required: true
+        - name: brand_name
+          in: path
+          description: brand of the item
+          type: string
+          required: true
+        - name: price
+          in: path
+          description: price of the item
+          type: number
+          required: true
+        - name: count
+          in: path
+          description: quantity of the item
+          type: integer
+          required: true
+        - name: is_available
+          in: path
+          description: availability of the item
+          type: boolean
+          required: true
+        - name: link
+          in: path
+          description: URL of the item
+          type: string
+          required: true
+
+    responses:
+        200:
+            description: Item field updated
+            schema:
+                id: Item
+                properties:
+                    sku:
+                        type: String
+                        description: unique id assigned internally by service
+                    name:
+                        type: String
+                        description: The name of the item in the system
+                    brand_name:
+                        type: String
+                        description: The brand of the item in the system
+                    price:
+                        type: number
+                        description: The price of the item in the system
+                    count:
+                        type: integer
+                        description: The quantiyu of the item in the system
+                    is_available:
+                        type: boolean
+                        description: The availability of the item in the system
+                    link:
+                        type: string
+                        description: The URL of the item in the system
+        400:
+            description: Bad Request
     """
     item = Item.find_or_404(item_id)
     item.deserialize(request.get_json())
@@ -136,7 +414,20 @@ def update_items(item_id):
 def delete_items(item_id):
     """
     Delete an Item
-    This endpoint will delete an Item based the id specified in the path
+    This endpoint will delete an Item based on the id specified in the path
+    ---
+    tags:
+        - Items
+    description: Deletes an Item from the database
+    parameters:
+      - name: id
+        in: path
+        description: ID of item to delete
+        type: integer
+        required: true
+    responses:
+        204:
+            description: Item deleted
     """
     item = Item.find(item_id)
     if item:
