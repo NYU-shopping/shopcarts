@@ -9,7 +9,11 @@ $(function () {
         $("#item_id").val(res.id);
         $("#item_name").val(res.name);
         $("#item_sku").val(res.sku);
-        if (res.available == true) {
+        $("#item_brand_name").val(res.brand_name);
+        $("#item_price").val(res.price);
+        $("#item_count").val(res.count);
+        $("#item_link").val(res.link);
+        if (res.is_available == true) {
             $("#item_available").val("true");
         } else {
             $("#item_available").val("false");
@@ -21,6 +25,10 @@ $(function () {
         $("#item_name").val("");
         $("#item_sku").val("");
         $("#item_available").val("");
+        $("#item_brand_name").val("");
+        $("#item_price").val("");
+        $("#item_count").val("");
+        $("#item_link").val("");
     }
 
     // Updates the flash message area
@@ -40,11 +48,19 @@ $(function () {
         var name = $("#item_name").val();
         var sku = $("#item_sku").val();
         var available = $("#item_available").val() == "true";
+        var brand_name = $("#item_brand_name").val();
+        var price = $("#item_price").val();
+        var count = $("#item_count").val();
+        var link = $("#item_link").val();
 
         var data = {
             "name": name,
             "sku": sku,
-            "is_available": available
+            "brand_name": brand_name,
+            "price": price,
+            "count": count,
+            "is_available": available,
+            "link": link
         };
 
         var ajax = $.ajax({
@@ -77,11 +93,20 @@ $(function () {
         var name = $("#item_name").val();
         var sku = $("#item_sku").val();
         var available = $("#item_available").val() == "true";
+        var brand_name = $("#item_brand_name").val();
+        var price = $("#item_price").val();
+        var count = $("#item_count").val();
+        var link = $("#item_link").val();
 
         var data = {
             "name": name,
             "sku": sku,
-            "is_available": available
+            "brand_name": brand_name,
+            "price": price,
+            "count": count,
+            "is_available": available,
+            "link": link
+
         };
 
         var ajax = $.ajax({
@@ -182,6 +207,10 @@ $(function () {
         var name = $("#item_name").val();
         var sku = $("#item_sku").val();
         var available = $("#item_available").val() == "true";
+        var brand_name = $("#item_brand_name").val();
+        var price = $("#item_price").val();
+        var count = $("#item_count").val();
+        var link = $("#item_link").val();
 
         var queryString = ""
 
@@ -203,6 +232,34 @@ $(function () {
                 queryString += 'available=' + available
             }
         }
+        if (brand_name) {
+            if (queryString.length > 0) {
+                queryString += '&brand_name=' + brand_name
+            } else {
+                queryString += 'brand_name=' + brand_name
+            }
+        }
+        if (price) {
+            if (queryString.length > 0) {
+                queryString += '&price=' + price
+            } else {
+                queryString += 'price=' + price
+            }
+        }
+        if (count) {
+            if (queryString.length > 0) {
+                queryString += '&count=' + count
+            } else {
+                queryString += 'count=' + count
+            }
+        }
+        if (link) {
+            if (queryString.length > 0) {
+                queryString += '&link=' + link
+            } else {
+                queryString += 'link=' + link
+            }
+        }
 
 
         var ajax = $.ajax({
@@ -218,15 +275,22 @@ $(function () {
             $("#search_results").append('<table class="table-striped">');
             var header = '<tr>'
             header += '<th style="width:10%">ID</th>'
-            header += '<th style="width:40%">Name</th>'
-            header += '<th style="width:40%">Sku</th>'
-            header += '<th style="width:10%">Available</th></tr>'
+            header += '<th style="width:15%">Sku</th>'
+            header += '<th style="width:15%">Name</th>'
+            header += '<th style="width:10%">Brand</th>'
+            header += '<th style="width:10%">Price</th>'
+            header += '<th style="width:10%">Count</th>'
+            header += '<th style="width:10%">Available</th>'
+            header += '<th style="width:20%">Link</th></tr>'
+    
             $("#search_results").append(header);
             for(var i = 0; i < res.length; i++) {
                 item = res[i];
-                var row = "<tr><td>"+item.id+"</td><td>"+item.name+"</td><td>"+item.sku+"</td><td>"+item.is_available+"</td></tr>";
+                var row = "<tr><td>"+item.id+"</td><td>"+item.sku+"</td><td>"+item.name+"</td><td>"+item.brand_name+
+                "</td><td>"+item.price+"</td><td>"+item.count+"</td><td>"+item.is_available+"</td><td>"+item.link+"</td></tr>";
                 $("#search_results").append(row);
             }
+          
 
             $("#search_results").append('</table>');
 
