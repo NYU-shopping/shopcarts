@@ -323,83 +323,62 @@ def update_items(item_id):
     posted
     ---
     tags:
-        - Items
+      - Items
     consumes:
-        - application/json
+      - application/json
     produces:
-        - application/json
+      - application/json
     parameters:
-        - name: id
-          in: path
-          description: ID of the item to retrieve
-          type: integer
-          required: true
-        - name: sku
-          in: path
-          description: sku of the item
-          type: string
-          required: true
-        - name: name
-          in: path
-          description: name of the item
-          type: string
-          required: true
-        - name: brand_name
-          in: path
-          description: brand of the item
-          type: string
-          required: true
-        - name: price
-          in: path
-          description: price of the item
-          type: number
-          required: true
-        - name: count
-          in: path
-          description: quantity of the item
-          type: integer
-          required: true
-        - name: is_available
-          in: path
-          description: availability of the item
-          type: boolean
-          required: true
-        - name: link
-          in: path
-          description: URL of the item
-          type: string
-          required: true
+      - name: id
+        in: path
+        description: ID of the item to retrieve
+        type: integer
+        required: true
+      - in: body
+        name: body
+        schema:
+          id: data
+          required:
+            - sku
+            - name
+            - brand_name
+            - price
+            - count
+            - is_available
+            - link
+          properties:
+            sku:
+              type: string
+              description: sku of item
+            name:
+              type: string
+              description: name of item
+            brand_name:
+              type: string
+              description: brand of item
+            price:
+              type: number
+              description: price of item
+            count:
+              type: integer
+              description: quantity of item
+            is_available:
+              type: boolean
+              description: availability of item
+            link:
+              type: string
+              description: URL of item
     responses:
-        200:
-            description: Item field updated
-            schema:
-                id: Item
-                properties:
-                    sku:
-                        type: String
-                        description: unique id assigned internally by service
-                    name:
-                        type: String
-                        description: The name of the item in the system
-                    brand_name:
-                        type: String
-                        description: The brand of the item in the system
-                    price:
-                        type: number
-                        description: The price of the item in the system
-                    count:
-                        type: integer
-                        description: The quantiyu of the item in the system
-                    is_available:
-                        type: boolean
-                        description: The availability of the item in the system
-                    link:
-                        type: string
-                        description: The URL of the item in the system
-        400:
-            description: Bad Request
+      200:
+        description: Item updated
+        schema:
+          $ref: '#/definitions/Item'
+      400:
+        description: Bad Request (the posted data was not valid)
     """
     item = Item.find_or_404(item_id)
+    if not item:
+        raise NotFound("Item with ID '{}' was not found.".format(id))
     item.deserialize(request.get_json())
     item.id = item_id
     item.save()
@@ -416,7 +395,7 @@ def delete_items(item_id):
     This endpoint will delete an Item based on the id specified in the path
     ---
     tags:
-        - Items
+      - Items
     description: Deletes an Item from the database
     parameters:
       - name: id
@@ -425,8 +404,8 @@ def delete_items(item_id):
         type: integer
         required: true
     responses:
-        204:
-            description: Item deleted
+      204:
+        description:    Item deleted
     """
     item = Item.find(item_id)
     if item:
