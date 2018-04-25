@@ -63,12 +63,14 @@ $(function () {
             "link": link
         };
 
+
         var ajax = $.ajax({
             type: "POST",
             url: "/shopcarts/items",
             contentType:"application/json",
             data: JSON.stringify(data),
         });
+        
 
         ajax.done(function(res){
             update_form_data(res)
@@ -202,7 +204,7 @@ $(function () {
 
     $("#search-btn").click(function () {
 
-        console.log("searching for an item");
+        console.log("searching for an item2");
 
         var name = $("#item_name").val();
         var sku = $("#item_sku").val();
