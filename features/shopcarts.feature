@@ -12,5 +12,47 @@ Background:
 
 Scenario: The server is running
     When I visit the "Cart page"
-    Then I should see "Shopcarts RESTful Service" in the title
+    Then I should see "SHOPCART REST API Service" in the title
     And I should not see "404 Not Found"
+
+Scenario: Create an Item
+    When I visit the "Cart Page"
+    And I set the "Name" to "Iphone"
+    And I set the "Brand_name" to "Apple"
+    And I set the "Sku" to "ID444"
+    And I set the "Price" to "888.99"
+    And I set the "Count" to "100"
+    And I set the "Link" to "www.apple.com"
+    And I press the "Create" button
+    Then I should see the message "Success"
+
+Scenario: List all items
+    When I visit the "Cart Page"
+    And I press the "Search" button
+    Then I should see "Rlx341" in the results
+    And I should see "AirMax" in the results
+    And I should see "D5100" in the results
+
+Scenario: Search by brand_name
+    When I visit the "Cart Page"
+    And I set the "Brand_name" to "Nike"
+    And I press the "Search" button
+    Then I should see "AirMax" in the results
+    And I should not see "Rlx341" in the results
+    And I should not see "D5100" in the results
+
+Scenario: Update an Item
+    When I visit the "Cart Page"
+    And I set the "Id" to "1"
+    And I press the "Retrieve" button
+    Then I should see "Rlx341" in the "Name" field
+    When I change "Name" to "Rolex45"
+    And I press the "Update" button
+    Then I should see the message "Success"
+    When I set the "Id" to "1"
+    And I press the "Retrieve" button
+    Then I should see "Rolex45" in the "Name" field
+    When I press the "Clear" button
+    And I press the "Search" button
+    Then I should see "Rolex45" in the results
+
