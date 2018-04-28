@@ -178,7 +178,7 @@ $(function () {
 
         ajax.done(function(res){
             clear_form_data()
-            flash_message("Item with ID [" + res.id + "] has been Deleted!")
+            flash_message("Item has been Deleted!")
         });
 
         ajax.fail(function(res){
@@ -194,8 +194,56 @@ $(function () {
 
         console.log("clearing the form");
 
-        $("#item_id").val("");
-        clear_form_data()
+         $("#item_id").val("");
+         clear_form_data()
+    });
+    
+
+    // ****************************************
+    // Cancel all Items
+    // ****************************************
+
+    $("#cancel-btn").click(function () {
+
+        console.log("Deleting all items");
+
+        var ajax = $.ajax({
+            type: "DELETE",
+            url: "/shopcarts/clear",
+            contentType:"application/json",
+            data: '',
+        })
+
+        ajax.done(function(res){
+            clear_form_data()
+            $("#search_results").empty();
+            $("#search_results").append('<table class="table-striped">');
+            var header = '<tr>'
+            header += '<th style="width:10%">ID</th>'
+            header += '<th style="width:15%">Sku</th>'
+            header += '<th style="width:15%">Name</th>'
+            header += '<th style="width:10%">Brand</th>'
+            header += '<th style="width:10%">Price</th>'
+            header += '<th style="width:10%">Count</th>'
+            header += '<th style="width:10%">Available</th>'
+            header += '<th style="width:20%">Link</th></tr>'
+    
+            $("#search_results").append(header);
+            for(var i = 0; i < res.length; i++) {
+                item = res[i];
+                var row = "<tr><td>"+item.id+"</td><td>"+item.sku+"</td><td>"+item.name+"</td><td>"+item.brand_name+
+                "</td><td>"+item.price+"</td><td>"+item.count+"</td><td>"+item.is_available+"</td><td>"+item.link+"</td></tr>";
+                $("#search_results").append(row);
+            }
+          
+
+            $("#search_results").append('</table>');
+            flash_message("Shopcart is empty now")
+        });
+
+        ajax.fail(function(res){
+            flash_message("Server error!")
+        });
     });
 
     // ****************************************
@@ -204,7 +252,7 @@ $(function () {
 
     $("#search-btn").click(function () {
 
-        console.log("searching for an item2");
+        console.log("searching for an item");
 
         var name = $("#item_name").val();
         var sku = $("#item_sku").val();

@@ -56,3 +56,24 @@ Scenario: Update an Item
     And I press the "Search" button
     Then I should see "Rolex45" in the results
 
+Scenario: Delete an Item
+    When I visit the "Cart Page"
+    And I set the "Id" to "2"
+    And I press the "Delete" button
+    Then I should see the message "Item has been Deleted!"
+    When I press the "Clear" button
+    And I set the "Id" to "2"
+    And I press the "Retrieve" button
+    Then I should see the message "404 Not Found: Item with id '2' was not found."
+
+Scenario: Cancel all items
+    When I visit the "Cart Page"
+    And I press the "Search" button
+    Then I should see "Rlx341" in the results
+    And I should see "AirMax" in the results
+    And I should see "D5100" in the results
+    When I press the "Cancel" button
+    Then I should not see "Rlx341" in the results
+    And I should not see "AirMax" in the results
+    And I should not see "D5100" in the results
+

@@ -120,4 +120,3 @@ def step_impl(context, element_name, text_string):
     element.send_keys(text_string)
 
 
-
