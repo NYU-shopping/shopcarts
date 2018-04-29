@@ -397,8 +397,19 @@ def delete_all_items():
     Delete all items
 
     This is an action endpoint which clears the shopcart
+    ---
+    tags:
+     - Items
+    description: Deletes all Item from the database
+    responses:
+     204:
+       description: Deleted all Items
     """
-    Item.query.delete()
+
+    items = Item.all()
+    for i in items:
+        i.delete()
+
     return make_response('', status.HTTP_204_NO_CONTENT)
 
 ######################################################################
