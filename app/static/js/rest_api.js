@@ -203,7 +203,7 @@ $(function () {
     // Cancel all Items
     // ****************************************
 
-    $("#cancel-btn").click(function () {
+    $("#reset-btn").click(function () {
 
         console.log("Deleting all items");
 
