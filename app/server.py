@@ -113,16 +113,6 @@ def list_items():
         description: the name of the item you are looking for
         required: false
         type: string
-      - name: price
-        in: query
-        description: the minimum price of the item you are looking for
-        required: false
-        type: number
-      - name: is_available
-        in: query
-        description: the availability of the item you are looking for
-        required: false
-        type: boolean
       - name: brand_name
         in: query
         description: the brand of the item you are looking for
@@ -141,21 +131,9 @@ def list_items():
           name:
             type: string
             description: name of the item
-          price:
-            type: number
-            description: price of the item
-          is_available:
-            type: boolean
-            description: availability of the item
           brand_name:
             type: string
             description: brand of the item
-          count:
-            type: number
-            description: quantity of the item
-          link:
-            type: string
-            description: URL of the item
     responses:
       200:
         description: An array of Items
@@ -175,10 +153,6 @@ def list_items():
         items = Item.find_by_sku(sku)
     elif name:
         items = Item.find_by_name(name)
-    elif price:
-        items = Item.find_by_price(price)
-    elif is_available:
-        items = Item.find_by_availability(is_available)
     elif brand_name:
         items = Item.find_by_brand(brand_name)
     else:
@@ -202,7 +176,7 @@ def get_items(item_id):
     produces:
       - application/json
     parameters:
-      - name: id
+      - name: item_id
         in: path
         description: ID of item to retrieve
         type: integer
@@ -329,7 +303,7 @@ def update_items(item_id):
     produces:
       - application/json
     parameters:
-      - name: id
+      - name: item_id
         in: path
         description: ID of the item to retrieve
         type: integer
@@ -396,9 +370,11 @@ def delete_items(item_id):
     ---
     tags:
       - Items
+    consumes:
+      - application/json
     description: Deletes an Item from the database
     parameters:
-      - name: id
+      - name: item_id
         in: path
         description: ID of item to delete
         type: integer
