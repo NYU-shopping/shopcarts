@@ -44,7 +44,7 @@ class TestItemServer(unittest.TestCase):
 
     def test_index(self):
         """ Test the Home Page """
-        resp = self.app.get('/shopcarts')
+        resp = self.app.get('/')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
 
     def test_get_item_list(self):

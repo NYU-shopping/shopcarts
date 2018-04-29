@@ -52,7 +52,7 @@ def internal_server_error(error):
 ######################################################################
 # GET INDEX
 ######################################################################
-@app.route('/shopcarts')
+@app.route('/')
 def index():
     """ Send back the home page """
     return app.send_static_file('index.html')
