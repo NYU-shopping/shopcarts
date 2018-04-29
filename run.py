@@ -1,6 +1,6 @@
 """
 Shopcart Service Runner
-Start the Pet Service and initializes logging
+Start the Shopcart Service and initializes logging
 """
 
 import os
