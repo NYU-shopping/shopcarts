@@ -1,9 +1,9 @@
 ---
 # This manifest deploys a Python Flask application with a ClearDB database
 applications:
-- name: nyu-shopcart-service-s18
+- name: nyu-shopcart-service-s18-prod
   random-route: true
-  host: nyu-shopcart-service-s18
+  host: nyu-shopcart-service-s18-prod
   domain: mybluemix.net
   path: .
   instances: 2
