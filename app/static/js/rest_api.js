@@ -160,6 +160,37 @@ $(function () {
     });
 
     // ****************************************
+    // Retrieve an Item By Sku
+    // ****************************************
+
+    $("#skusearch-btn").click(function () {
+
+        console.log("Retrieving an Item using sku");
+
+        var item_sku = $("#item_sku").val();
+        var queryString = 'sku=' + item_sku;
+
+        var ajax = $.ajax({
+            type: "GET",
+            url: "/shopcarts/items?" + queryString,
+            contentType:"application/json",
+            data: ''
+        })
+
+        ajax.done(function(res){
+            //alert(res.toSource())
+            update_form_data(res[0])
+            flash_message("Success")
+        });
+
+        ajax.fail(function(res){
+            clear_form_data()
+            flash_message(res.responseJSON.message)
+        });
+
+    });
+
+    // ****************************************
     // Delete an Item
     // ****************************************
 
