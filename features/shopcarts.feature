@@ -41,22 +41,21 @@ Scenario: Search by brand_name
     And I should not see "Rlx341" in the results
     And I should not see "D5100" in the results
 
-"""
 Scenario: Update an Item
     When I visit the "Cart Page"
-    And I set the "Id" to "1"
-    And I press the "Retrieve" button
-    Then I should see "Rlx341" in the "Name" field
+    And I set the "Sku" to "ID111"
+    And I press the "Search" button
+    Then I should see "Rlx341" in the results
     When I change "Name" to "Rolex45"
     And I press the "Update" button
     Then I should see the message "Success"
-    When I set the "Id" to "1"
-    And I press the "Retrieve" button
-    Then I should see "Rolex45" in the "Name" field
+    When I set the "Sku" to "ID111"
+    And I press the "Search" button
+    Then I should see "Rolex45" in the results
     When I press the "Clear" button
     And I press the "Search" button
     Then I should see "Rolex45" in the results
-"""
+
 
 Scenario: Delete an Item
     When I visit the "Cart Page"
