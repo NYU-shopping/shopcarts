@@ -66,7 +66,6 @@ Scenario: Delete an Item
     And I press the "Retrieve" button
     Then I should see the message "404 Not Found: Item with id '2' was not found."
 
-"""
 Scenario: Cancel all items
     When I visit the "Cart Page"
     And I press the "Search" button
@@ -77,4 +76,3 @@ Scenario: Cancel all items
     Then I should not see "Rlx341" in the results
     And I should not see "AirMax" in the results
     And I should not see "D5100" in the results
-"""
