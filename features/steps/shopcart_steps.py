@@ -14,7 +14,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions
 from app import server
 
-WAIT_SECONDS = 30
+WAIT_SECONDS = 120
 BASE_URL = getenv('BASE_URL', 'http://localhost:5000/')
 
 @given(u'the following items')
